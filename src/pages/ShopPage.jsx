@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import ProductCard from '../components/ProductCard';
+import Loader from '../components/Loader';
+import ErrorMessage from '../components/ErrorMessage';
 import { fetchProducts } from '../services/productService';
 import '../styles/ShopPage.css';
 
@@ -16,7 +18,7 @@ const ShopPage = () => {
         setProducts(data);
         setError(null);
       } catch (err) {
-        setError('Failed to load products. Please try again later.');
+        setError('Failed to load products. Please check your connection and try again.');
       } finally {
         setLoading(false);
       }
@@ -26,16 +28,16 @@ const ShopPage = () => {
   }, []);
 
   return (
-    <div className="shop-container">
+    <div className="shop-container" role="main" aria-label="Shop Page">
       <h1>Our Shop</h1>
-      <p>Browse through our collection of premium quality items.</p>
+      <p className="shop-subtitle">Browse through our collection of premium quality items.</p>
       
-      {loading && <div className="status-message">Loading products...</div>}
+      {loading && <Loader />}
       
-      {error && <div className="error-message">{error}</div>}
+      {error && <ErrorMessage message={error} />}
       
       {!loading && !error && products.length > 0 && (
-        <div className="products-grid">
+        <div className="products-grid" aria-label="Product list">
           {products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}

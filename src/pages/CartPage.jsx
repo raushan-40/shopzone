@@ -26,9 +26,15 @@ const CartPage = () => {
 
   if (cartItems.length === 0) {
     return (
-      <div className="cart-empty-container">
-        <h2>Your cart is empty.</h2>
-        <button className="continue-shopping-btn" onClick={() => navigate('/shop')}>
+      <div className="cart-empty-container" role="main" aria-live="polite">
+        <div className="cart-empty-illustration" aria-hidden="true">🛒</div>
+        <h2>Your cart is currently empty</h2>
+        <p className="cart-empty-msg">Looks like you haven't added anything to your cart yet.</p>
+        <button 
+          className="continue-shopping-btn" 
+          onClick={() => navigate('/shop')}
+          aria-label="Continue shopping button"
+        >
           Continue Shopping
         </button>
       </div>
@@ -36,14 +42,14 @@ const CartPage = () => {
   }
 
   return (
-    <div className="cart-page-container">
-      <h1>Shopping Cart</h1>
+    <div className="cart-page-container" role="main" aria-label="Shopping Cart">
+      <h1 className="cart-heading">Shopping Cart</h1>
       
       <div className="cart-layout">
-        <div className="cart-items-list">
+        <div className="cart-items-list" aria-label="List of cart items">
           {cartItems.map((item) => (
             <div key={item.id} className="cart-item">
-              <img src={item.thumbnail} alt={item.title} className="cart-item-image" />
+              <img src={item.thumbnail} alt={`Image of ${item.title}`} className="cart-item-image" />
               
               <div className="cart-item-details">
                 <h3 className="cart-item-title">{item.title}</h3>
@@ -51,15 +57,21 @@ const CartPage = () => {
               </div>
 
               <div className="cart-item-actions">
-                <div className="quantity-controls">
+                <div className="quantity-controls" aria-label={`Adjust quantity for ${item.title}`}>
                   <button 
                     onClick={() => handleDecrease(item.id, item.quantity)}
                     disabled={item.quantity <= 1}
+                    aria-label="Decrease quantity by 1"
                   >
                     -
                   </button>
-                  <span className="item-quantity">{item.quantity}</span>
-                  <button onClick={() => handleIncrease(item.id, item.quantity)}>
+                  <span className="item-quantity" aria-label={`Current quantity: ${item.quantity}`}>
+                    {item.quantity}
+                  </span>
+                  <button 
+                    onClick={() => handleIncrease(item.id, item.quantity)}
+                    aria-label="Increase quantity by 1"
+                  >
                     +
                   </button>
                 </div>
@@ -71,6 +83,7 @@ const CartPage = () => {
                 <button 
                   className="remove-item-btn" 
                   onClick={() => handleRemove(item.id)}
+                  aria-label={`Remove ${item.title} from cart completely`}
                 >
                   Remove
                 </button>
@@ -79,7 +92,7 @@ const CartPage = () => {
           ))}
         </div>
 
-        <div className="cart-summary">
+        <div className="cart-summary" aria-label="Cart order summary">
           <h2>Order Summary</h2>
           <div className="summary-row">
             <span>Total Items:</span>
@@ -89,10 +102,18 @@ const CartPage = () => {
             <span>Total Price:</span>
             <span>${totalPrice.toFixed(2)}</span>
           </div>
-          <button className="checkout-placeholder-btn">Proceed to Checkout</button>
           <button 
-            className="continue-shopping-btn mt-3" 
+            className="checkout-placeholder-btn"
+            onClick={() => navigate('/checkout')}
+            aria-label="Proceed securely to checkout process"
+          >
+            Proceed to Checkout
+          </button>
+          <button 
+            className="continue-shopping-btn" 
             onClick={() => navigate('/shop')}
+            aria-label="Go back to shop page to continue shopping"
+            style={{ width: '100%', marginTop: '1rem', background: '#e9ecef', color: '#495057' }}
           >
             Continue Shopping
           </button>

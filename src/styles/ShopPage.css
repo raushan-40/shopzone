@@ -1,27 +1,23 @@
 .shop-container {
-  padding: 1rem 0;
+  padding: 1.5rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .shop-container h1 {
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem;
+  color: #333;
 }
 
-.status-message {
-  font-size: 1.2rem;
-  color: #555;
-  text-align: center;
-  margin-top: 3rem;
-}
-
-.error-message {
-  font-size: 1.2rem;
-  color: #dc3545;
-  text-align: center;
-  margin-top: 3rem;
+.shop-subtitle {
+  color: #666;
+  font-size: 1.1rem;
+  margin-bottom: 2.5rem;
 }
 
 .products-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 2rem;
+  width: 100%;
 }

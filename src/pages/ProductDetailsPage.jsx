@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import Loader from '../components/Loader';
+import ErrorMessage from '../components/ErrorMessage';
 import { fetchProductById } from '../services/productService';
 import { useCart } from '../context/CartContext';
 import '../styles/ProductDetailsPage.css';
@@ -41,31 +43,19 @@ const ProductDetailsPage = () => {
     }
   };
 
-  if (loading) {
-    return <div className="details-status">Loading product details...</div>;
-  }
+  if (loading) return <Loader />;
 
-  if (error) {
-    return (
-      <div className="product-details-container">
-        <button className="back-btn" onClick={() => navigate('/shop')}>
-          &larr; Back to Shop
-        </button>
-        <div className="details-error">
-          <h2>Oops!</h2>
-          <p>{error}</p>
-        </div>
-      </div>
-    );
-  }
+  if (error) return <ErrorMessage message={error} />;
 
-  if (!product) {
-    return null;
-  }
+  if (!product) return null;
 
   return (
-    <div className="product-details-container">
-      <button className="back-btn" onClick={() => navigate('/shop')}>
+    <div className="product-details-container" role="main" aria-label={`Details for ${product.title}`}>
+      <button 
+        className="back-btn" 
+        onClick={() => navigate('/shop')}
+        aria-label="Navigate back to shop page"
+      >
         &larr; Back to Shop
       </button>
       
@@ -83,11 +73,19 @@ const ProductDetailsPage = () => {
           <p className="details-price">${product.price.toFixed(2)}</p>
           
           <div className="details-stats">
-            <span className="details-rating">⭐ {product.rating} / 5</span>
-            <span className="details-stock">📦 Stock: {product.stock} left</span>
+            <span className="details-rating" aria-label={`Rating ${product.rating} out of 5`}>
+              ⭐ {product.rating} / 5
+            </span>
+            <span className="details-stock" aria-label={`${product.stock} items remaining in stock`}>
+              📦 Stock: {product.stock} left
+            </span>
           </div>
 
-          <button className="add-to-cart-btn" onClick={handleAddToCart}>
+          <button 
+            className="add-to-cart-btn" 
+            onClick={handleAddToCart}
+            aria-label={`Add ${product.title} to cart`}
+          >
             Add to Cart
           </button>
         </div>
