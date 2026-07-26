@@ -1,0 +1,27 @@
+.shop-container {
+  padding: 1rem 0;
+}
+
+.shop-container h1 {
+  margin-bottom: 2rem;
+}
+
+.status-message {
+  font-size: 1.2rem;
+  color: #555;
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.error-message {
+  font-size: 1.2rem;
+  color: #dc3545;
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+}
