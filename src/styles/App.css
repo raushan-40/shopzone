@@ -1,0 +1,6 @@
+/* Cleaned up layout to respect standard document flow rather than centering vertically */
+.main-content {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
