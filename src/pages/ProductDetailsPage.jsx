@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchProductById } from '../services/productService';
+import { useCart } from '../context/CartContext';
 import '../styles/ProductDetailsPage.css';
 
 const ProductDetailsPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { dispatch } = useCart();
   
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -17,7 +19,6 @@ const ProductDetailsPage = () => {
         setLoading(true);
         setError(null);
         
-        // Ensure ID is provided and numeric enough to be handled appropriately
         if (!id) {
           throw new Error('Invalid product ID');
         }
@@ -33,6 +34,12 @@ const ProductDetailsPage = () => {
 
     loadProduct();
   }, [id]);
+
+  const handleAddToCart = () => {
+    if (product) {
+      dispatch({ type: 'ADD_TO_CART', payload: product });
+    }
+  };
 
   if (loading) {
     return <div className="details-status">Loading product details...</div>;
@@ -53,7 +60,7 @@ const ProductDetailsPage = () => {
   }
 
   if (!product) {
-    return null; // Will theoretically not hit this state due to the error check, but safe fallback
+    return null;
   }
 
   return (
@@ -79,6 +86,10 @@ const ProductDetailsPage = () => {
             <span className="details-rating">⭐ {product.rating} / 5</span>
             <span className="details-stock">📦 Stock: {product.stock} left</span>
           </div>
+
+          <button className="add-to-cart-btn" onClick={handleAddToCart}>
+            Add to Cart
+          </button>
         </div>
       </div>
     </div>
