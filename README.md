@@ -207,11 +207,18 @@ During this project, I gained practical experience with:
 
 ---
 
+## 🌐 Live Demo
+
+🔗 https://shopzone-mu-lake.vercel.app/
+
+## 📂 GitHub Repository
+
+🔗 https://github.com/raushan-40/shopzone
+
+
 ## 👨‍💻 Author
 
 **Raushan Kumar**
-
-- GitHub: https://github.com/raushan-40
 
 ---
 
